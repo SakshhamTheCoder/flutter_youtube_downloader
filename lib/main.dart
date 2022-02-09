@@ -160,7 +160,7 @@ class _YoutubeDownloaderState extends State<YoutubeDownloader> {
                   actions: <Widget>[
                     MaterialButton(
                       minWidth: 300,
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       color: Colors.orange.shade300,
                       child: const Text(
                         'OK',
@@ -192,7 +192,6 @@ class _YoutubeDownloaderState extends State<YoutubeDownloader> {
         await fileStream.flush();
         await fileStream.close();
         Navigator.pop(dialogContext);
-        print("sed");
         await showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -228,7 +227,7 @@ class _YoutubeDownloaderState extends State<YoutubeDownloader> {
                   actions: <Widget>[
                     MaterialButton(
                       minWidth: 300,
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       color: Colors.orange.shade300,
                       child: const Text(
                         'OK',
