@@ -45,7 +45,6 @@ class YoutubeDownloader extends StatefulWidget {
 }
 
 class _YoutubeDownloaderState extends State<YoutubeDownloader> {
-  int count = 0;
   final _urlController = TextEditingController();
   bool disabled = true;
   bool clicked = false;
@@ -114,10 +113,13 @@ class _YoutubeDownloaderState extends State<YoutubeDownloader> {
       if (video) {
         var info = manifest.muxed.sortByVideoQuality().first;
         var stream = yt.videos.streams.get(info);
-        var file = File(directory!.path +
-            "/" +
-            vid.title.replaceAll(" ", "_").replaceAll("\"", "") +
-            ".mp4");
+        var file = await File(directory!.path +
+                "/" +
+                vid.title
+                    .replaceAll(RegExp(r"[^0-9a-zA-Z ]+"), "")
+                    .replaceAll(" ", "_") +
+                ".mp4")
+            .create(recursive: true);
         var fileStream = file.openWrite();
         await stream.pipe(fileStream);
         await fileStream.flush();
@@ -180,7 +182,9 @@ class _YoutubeDownloaderState extends State<YoutubeDownloader> {
         var stream = yt.videos.streams.get(info);
         var file = await File(directory!.path +
                 "/" +
-                vid.title.replaceAll(" ", "_").replaceAll("\"", "") +
+                vid.title
+                    .replaceAll(RegExp(r"[^0-9a-zA-Z ]+"), "")
+                    .replaceAll(" ", "_") +
                 ".mp3")
             .create(recursive: true);
         var fileStream = file.openWrite();
